@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -16,6 +17,8 @@ public class GamePanel extends JPanel implements Runnable{
 
   MouseHandler mouseH = new MouseHandler();
   Thread gameThread;
+
+  ArrayList<Node> wallList = new ArrayList<>();
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(width, height));
@@ -68,6 +71,16 @@ public class GamePanel extends JPanel implements Runnable{
 
   public void update(){
 
+    int mouseX = mouseH.mouseX;
+    int mouseY = mouseH.mouseY;
+
+    int gridX = mouseX / boxSize;
+    int gridY = mouseY / boxSize;
+
+    if(mouseH.isMouseClicked || mouseH.isMouseDragged){
+      wallList.add(new Node(gridX * boxSize, gridY * boxSize));
+    }
+
   }
 
   public void paintComponent(Graphics g){
@@ -85,6 +98,11 @@ public class GamePanel extends JPanel implements Runnable{
       for(int j = 0; j < width; j+=boxSize){
         g2.drawRect(j, i, boxSize, boxSize);
       }
+    }
+
+    // display walls
+    for(int i = 0; i < wallList.size(); i++){
+      g2.fillRect(wallList.get(i).x, wallList.get(i).y, boxSize, boxSize);
     }
 
     g2.dispose();
