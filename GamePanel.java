@@ -71,6 +71,20 @@ public class GamePanel extends JPanel implements Runnable{
     super.paintComponent(g);
 
     Graphics2D g2 = (Graphics2D) g;
+
+
+    // height (720) / boxSize (20) = 36
+    // width (1280) / boxSize (20) = 64
+
+    // draw 64 x 36 grid on the window
+    g2.setColor(Color.black);
+    for(int i = 0; i < height; i+=boxSize){
+      for(int j = 0; j < width; j+=boxSize){
+        g2.drawRect(j, i, boxSize, boxSize);
+      }
+    }
+
+    g2.dispose();
   }
 
 }
