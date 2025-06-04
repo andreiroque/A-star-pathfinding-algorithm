@@ -14,12 +14,15 @@ public class GamePanel extends JPanel implements Runnable{
 
   int FPS = 60;
 
+  MouseHandler mouseH = new MouseHandler();
   Thread gameThread;
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(width, height));
     this.setBackground(Color.white);
     this.setDoubleBuffered(true);
+    this.addMouseListener(mouseH);
+    this.addMouseMotionListener(mouseH);
     this.setFocusable(true);
   }
 
